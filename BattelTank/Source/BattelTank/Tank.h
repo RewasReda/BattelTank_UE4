@@ -43,5 +43,5 @@ public:
 	void SetTurretRefrence(UTankTurret* TurretToSet);
 
 	UPROPERTY(EditAnywhere, Category = Firing)
-	float LuanchSpeed = 100000; // TODO find sensible default
+	float LuanchSpeed = 4000; 
 };

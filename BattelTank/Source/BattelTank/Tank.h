@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "TankAimingComponent.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 //#include "Components/StaticMeshComponent.h"
 #include "Runtime/CoreUObject/Public/UObject/UObjectGlobals.h"
 #include "GameFramework/Pawn.h"
@@ -38,6 +39,8 @@ public:
 
 	UFUNCTION(BlueprintCallable , Category=Setup)
 	void SetBarrelRefrence(UTankBarrel* BarrelToSet);
+	UFUNCTION(BlueprintCallable , Category=Setup)
+	void SetTurretRefrence(UTankTurret* TurretToSet);
 
 	UPROPERTY(EditAnywhere, Category = Firing)
 	float LuanchSpeed = 100000; // TODO find sensible default

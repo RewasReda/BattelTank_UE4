@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 #include "Engine/World.h"
 #include "Runtime/Engine/Classes/Components/SceneComponent.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
@@ -28,6 +29,7 @@ protected:
 	// Called when the game starts
 	//virtual void BeginPlay() override;
 	UTankBarrel* Barrel;
+	UTankTurret* Turret;
 	void MoveBarrelTowards(FVector AimDirection);
 
 public:	
@@ -36,5 +38,6 @@ public:
 
 	void AimAt(FVector HitLocation , float LuanchSpeed);
 	void SetBarrelRefrence(UTankBarrel* BarrelToSet);
+	void SetTurretRefrence(UTankTurret* TurretToSet);
 		
 };

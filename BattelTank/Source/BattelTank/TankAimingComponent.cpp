@@ -105,6 +105,19 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LuanchSpeed)
 
 void UTankAimingComponent::SetBarrelRefrence(UTankBarrel * BarrelToSet)
 {
+	if (!BarrelToSet)
+	{
+		return;
+	}
 	Barrel = BarrelToSet;
+}
+
+void UTankAimingComponent::SetTurretRefrence(UTankTurret * TurretToSet)
+{
+	if (!TurretToSet)
+	{
+		return;
+	}
+	Turret = TurretToSet;
 }
 

@@ -6,6 +6,8 @@
 #include "TankAimingComponent.h"
 #include "TankBarrel.h"
 #include "TankTurret.h"
+#include "Engine/World.h"
+#include "Projectile.h"
 //#include "Components/StaticMeshComponent.h"
 #include "Runtime/CoreUObject/Public/UObject/UObjectGlobals.h"
 #include "GameFramework/Pawn.h"
@@ -39,9 +41,22 @@ public:
 
 	UFUNCTION(BlueprintCallable , Category=Setup)
 	void SetBarrelRefrence(UTankBarrel* BarrelToSet);
-	UFUNCTION(BlueprintCallable , Category=Setup)
+	UFUNCTION(BlueprintCallable, Category = Setup)
 	void SetTurretRefrence(UTankTurret* TurretToSet);
 
-	UPROPERTY(EditAnywhere, Category = Firing)
+	UFUNCTION(BlueprintCallable, Category = Firing)
+	void Fire();
+
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float LuanchSpeed = 4000; 
+	
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
+	TSubclassOf<AProjectile> ProjectileBlueprint;
+
+	UTankBarrel* Barrel = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	float ReloadTimeInSeconds = 3;
+
+	double LastFireTime = 0;
 };

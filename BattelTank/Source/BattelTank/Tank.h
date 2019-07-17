@@ -7,6 +7,7 @@
 #include "TankBarrel.h"
 #include "TankTurret.h"
 #include "Engine/World.h"
+#include "TankMovementComponent.h"
 #include "Projectile.h"
 //#include "Components/StaticMeshComponent.h"
 #include "Runtime/CoreUObject/Public/UObject/UObjectGlobals.h"
@@ -31,7 +32,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	UTankAimingComponent* TankAimingComponent = nullptr;
-
+	UPROPERTY(BlueprintReadOnly)
+	UTankMovementComponent* TankMovementComponent = nullptr;
 public:	
 	//// Called every frame
 	//virtual void Tick(float DeltaTime) override;
@@ -55,7 +57,7 @@ public:
 
 	UTankBarrel* Barrel = nullptr;
 
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	UPROPERTY(EditDefaultsOnly, Category = Firing)	
 	float ReloadTimeInSeconds = 3;
 
 	double LastFireTime = 0;

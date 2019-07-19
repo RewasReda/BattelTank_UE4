@@ -9,12 +9,15 @@ ATank::ATank()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
-	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
+	auto TankName = GetName();
+	UE_LOG(LogTemp, Warning, TEXT("%s DONKEY: Tank C++ Construct"), *TankName)
+	//TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
 	//TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("Movement Component"));
 }
 
 void ATank::AimAt(FVector HitLocation)
 {
+	if (!TankAimingComponent) { return; }
 	/*auto OurTankName = GetName();
 
 	UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s"), *OurTankName, *HitLocation.ToString());
@@ -26,33 +29,35 @@ void ATank::AimAt(FVector HitLocation)
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	// Needed for BP Begin Play to run!
+	auto TankName = GetName();
+	UE_LOG(LogTemp, Warning, TEXT("%s DONKEY: Tank C++ Begin Play"), *TankName)
 }
-
-//// Called every frame
-//void ATank::Tick(float DeltaTime)
+//
+////// Called every frame
+////void ATank::Tick(float DeltaTime)
+////{
+////	Super::Tick(DeltaTime);
+////
+////}
+//
+//// Called to bind functionality to input
+//void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 //{
-//	Super::Tick(DeltaTime);
+//	Super::SetupPlayerInputComponent(PlayerInputComponent);
 //
 //}
-
-// Called to bind functionality to input
-void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-}
-
-void ATank::SetBarrelRefrence(UTankBarrel * BarrelToSet)
-{
-	TankAimingComponent->SetBarrelRefrence(BarrelToSet);
-	Barrel = BarrelToSet;
-}
-
-void ATank::SetTurretRefrence(UTankTurret * TurretToSet)
-{
-	TankAimingComponent->SetTurretRefrence(TurretToSet);
-}
+//
+//void ATank::SetBarrelRefrence(UTankBarrel * BarrelToSet)
+//{
+//	TankAimingComponent->SetBarrelRefrence(BarrelToSet);
+//	Barrel = BarrelToSet;
+//}
+//
+//void ATank::SetTurretRefrence(UTankTurret * TurretToSet)
+//{
+//	TankAimingComponent->SetTurretRefrence(TurretToSet);
+//}
 
 void ATank::Fire()
 {

@@ -5,6 +5,7 @@
 #include "Tank.h"
 #include "Runtime/Engine/Classes/Camera/PlayerCameraManager.h"
 #include "Engine/World.h"
+#include "TankAimingComponent.h"
 #include "Components/ActorComponent.h"
 #include "Components/PrimitiveComponent.h"
 #include "GameFramework/PlayerController.h"
@@ -23,7 +24,12 @@ class BATTELTANK_API ATankPlayerController : public APlayerController
 
 
 public:
+	UFUNCTION(BlueprintCallable, Category = "Setup")
 	ATank* GetControlledTank() const;
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
+	void FoundAimingComponent(UTankAimingComponent* AimCompRef);
+
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 

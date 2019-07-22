@@ -8,7 +8,7 @@ UTankAimingComponent::UTankAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = false;
+	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
 }
@@ -21,6 +21,13 @@ void UTankAimingComponent::BeginPlay()
 
 	// ...
 	LastFireTime = FPlatformTime::Seconds();	
+}
+
+bool UTankAimingComponent::IsMoving()
+{
+	if (!ensureAlways(Barrel)) { return false; }
+	auto BarrelForward = Barrel->GetForwardVector();
+	return !BarrelForward.Equals(AimDirection, 0.1);
 }
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
@@ -45,9 +52,17 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
-	if ((FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds)
+	if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
 	{
 		FiringState = EFiringState::Reloading;
+	}
+	else if(IsMoving())
+	{
+		FiringState = EFiringState::Aiming;
+	}
+	else
+	{
+		FiringState = EFiringState::Locked;
 	}
 	// TODO Handle aiming and locked states
 
@@ -93,7 +108,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 	);
 	if(bHaveAimSolution)
 	{
-		auto AimDirection = OutLuanchVelocity.GetSafeNormal();
+		AimDirection = OutLuanchVelocity.GetSafeNormal();
 		//UE_LOG(LogTemp, Warning, TEXT("Aiming At %s"), *AimDirection.ToString());
 		MoveBarrelTowards(AimDirection);
 

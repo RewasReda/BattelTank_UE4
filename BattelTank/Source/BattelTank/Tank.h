@@ -3,12 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "TankAimingComponent.h"
-#include "TankBarrel.h"
+//#include "TankAimingComponent.h"
+//#include "TankBarrel.h"
 #include "TankTurret.h"
 #include "Engine/World.h"
-#include "TankMovementComponent.h"
-#include "Projectile.h"
+//#include "TankMovementComponent.h"
+//#include "Projectile.h"
 //#include "Components/StaticMeshComponent.h"
 #include "Runtime/CoreUObject/Public/UObject/UObjectGlobals.h"
 #include "GameFramework/Pawn.h"
@@ -25,16 +25,16 @@ public:
 	// Sets default values for this pawn's properties
 	ATank();
 
-	void AimAt(FVector HitLocation);
+	//void AimAt(FVector HitLocation);
 
 
 protected:
 	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-	UPROPERTY(BlueprintReadOnly)
-	UTankAimingComponent* TankAimingComponent = nullptr;
-	UPROPERTY(BlueprintReadOnly)
-	UTankMovementComponent* TankMovementComponent = nullptr;
+	//virtual void BeginPlay() override;
+	//UPROPERTY(BlueprintReadOnly)
+	//UTankAimingComponent* TankAimingComponent = nullptr;
+	//UPROPERTY(BlueprintReadOnly)
+	//UTankMovementComponent* TankMovementComponent = nullptr;
 public:	
 	//// Called every frame
 	//virtual void Tick(float DeltaTime) override;
@@ -47,19 +47,19 @@ public:
 	//UFUNCTION(BlueprintCallable, Category = "Setup")
 	//void SetTurretRefrence(UTankTurret* TurretToSet);
 
-	UFUNCTION(BlueprintCallable, Category = "Firing")
-	void Fire();
+	//UFUNCTION(BlueprintCallable, Category = "Firing")
+	//void Fire();
+	// TODO remove once firing is moved to aiming component
+	//UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	//float LuanchSpeed = 4000; 
+	//
+	//UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	//TSubclassOf<AProjectile> ProjectileBlueprint;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-	float LuanchSpeed = 4000; 
-	
-	UPROPERTY(EditDefaultsOnly, Category = "Setup")
-	TSubclassOf<AProjectile> ProjectileBlueprint;
+	//UTankBarrel* Barrel = nullptr;// TODO Remove
 
-	UTankBarrel* Barrel = nullptr;// TODO Remove
+	//UPROPERTY(EditDefaultsOnly, Category = "Firing")	
+	//float ReloadTimeInSeconds = 3;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Firing")	
-	float ReloadTimeInSeconds = 3;
-
-	double LastFireTime = 0;
+	//double LastFireTime = 0;
 };

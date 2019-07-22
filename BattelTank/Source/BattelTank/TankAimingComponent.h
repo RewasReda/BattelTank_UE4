@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "TankBarrel.h"
+#include "Projectile.h"
 #include "TankTurret.h"
 #include "Engine/World.h"
 #include "Runtime/Engine/Classes/Components/SceneComponent.h"
@@ -36,18 +37,34 @@ public:
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
-	EFiringState FiringState = EFiringState::Locked;
+	EFiringState FiringState = EFiringState::Reloading;
 	// Called when the game starts
-	//virtual void BeginPlay() override;
-	UTankBarrel* Barrel;
-	UTankTurret* Turret;
+	virtual void BeginPlay() override;
+	UTankBarrel* Barrel = nullptr;
+	UTankTurret* Turret = nullptr;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	TSubclassOf<AProjectile> ProjectileBlueprint;
+
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+		float ReloadTimeInSeconds = 3;
+
+	double LastFireTime = 0;
+
+
 	void MoveBarrelTowards(FVector AimDirection);
 
 public:	
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	float LuanchSpeed = 4000;
 	// Called every frame
-	//virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	void AimAt(FVector HitLocation , float LuanchSpeed);
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+	void Fire();
+
+	void AimAt(FVector HitLocation);
 	UFUNCTION(BlueprintCallable, Category = "Setup")	
 	void Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 		

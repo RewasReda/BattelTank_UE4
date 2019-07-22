@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "Tank.h"
+//#include "Tank.h"
 #include "Runtime/Engine/Classes/Camera/PlayerCameraManager.h"
 #include "Engine/World.h"
 #include "TankAimingComponent.h"
@@ -24,8 +24,8 @@ class BATTELTANK_API ATankPlayerController : public APlayerController
 
 
 public:
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-	ATank* GetControlledTank() const;
+	//UFUNCTION(BlueprintCallable, Category = "Setup")
+	//ATank* GetControlledTank() const;
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 	void FoundAimingComponent(UTankAimingComponent* AimCompRef);

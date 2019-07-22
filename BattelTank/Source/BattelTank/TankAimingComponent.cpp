@@ -14,18 +14,18 @@ UTankAimingComponent::UTankAimingComponent()
 }
 
 
-//// Called when the game starts
-//void UTankAimingComponent::BeginPlay()
-//{
-//	Super::BeginPlay();
-//
-//	// ...
-//	
-//}
+// Called when the game starts
+void UTankAimingComponent::BeginPlay()
+{
+	Super::BeginPlay();
+
+	// ...
+	LastFireTime = FPlatformTime::Seconds();	
+}
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
-	if (!Barrel || !Turret) { return; }
+	if (!ensureAlways(Barrel) || !ensureAlways(Turret)) { return; }
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator =  AimAsRotator - BarrelRotator;
@@ -39,22 +39,28 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 }
 
 
-//// Called every frame
-//void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-//{
-//	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-//
-//	// ...
-//}
+// Called every frame
+void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-void UTankAimingComponent::AimAt(FVector HitLocation, float LuanchSpeed)
+	// ...
+	if ((FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds)
+	{
+		FiringState = EFiringState::Reloading;
+	}
+	// TODO Handle aiming and locked states
+
+}
+
+void UTankAimingComponent::AimAt(FVector HitLocation)
 {
 	/*auto OurTankName = GetOwner()->GetName();
 	auto BarrelLocation = Barrel->GetComponentLocation().ToString();
 	UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s From %s Firing At %f"), *OurTankName, *HitLocation.ToString(), *BarrelLocation, LuanchSpeed);
 */
 
-	if (!Barrel)
+	if (!ensureAlways(Barrel))
 	{
 		return;
 	}
@@ -109,6 +115,30 @@ void UTankAimingComponent::Initialise(UTankBarrel * BarrelToSet, UTankTurret * T
 {
 	Barrel = BarrelToSet;
 	Turret = TurretToSet;
+
+}
+
+void UTankAimingComponent::Fire()
+{
+	//auto Time = GetWorld()->GetTimeSeconds();
+	//UE_LOG(LogTemp, Warning, TEXT("%f: Tank fires"), Time);
+	//if (!ensureAlways(Barrel)) { return; }
+	//bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
+	//if (isReloaded)
+	if(FiringState != EFiringState::Reloading)
+	{
+		if (!ensureAlways(Barrel)) { return; }
+		if (!ensureAlways(ProjectileBlueprint)) { return; }
+		auto Projectile = GetWorld()->SpawnActor<AProjectile>
+			(
+				ProjectileBlueprint,
+				Barrel->GetSocketLocation(FName("Projectile")),
+				Barrel->GetSocketRotation(FName("Projectile"))
+				);
+		Projectile->LaunchProjectile(LuanchSpeed);
+		LastFireTime = FPlatformTime::Seconds();
+	}
+
 
 }
 

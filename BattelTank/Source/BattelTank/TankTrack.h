@@ -21,4 +21,16 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	float TrackMaxDrivingForce = 400000; // Assume 40 tonne tank, and 1g accelleration
 
+private:
+	UTankTrack();
+	virtual void BeginPlay() override;
+
+	//virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	void ApplySidewaysForce();
+	void DriveTrack();
+	float CurrentThrottle = 0;
+
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
+
 };

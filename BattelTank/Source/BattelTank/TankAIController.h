@@ -28,6 +28,10 @@ private:
 	float  AcceptanceRadious = 3000;
 	/*ATank* GetControlledTank() const;
 	ATank* GetPlayerTank() const;*/
+protected:
+	// How close can the AI tank get
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float AcceptanceRadius = 8000;
 
 
 };

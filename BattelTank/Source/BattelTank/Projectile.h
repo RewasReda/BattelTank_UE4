@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "Runtime/Engine/Classes/GameFramework/ProjectileMovementComponent.h"
 #include "Engine/World.h"
+#include "Runtime/Engine/Classes/Components/StaticMeshComponent.h"
+#include "Runtime/Engine/Classes/Particles/ParticleSystemComponent.h"
 #include "Runtime/CoreUObject/Public/UObject/UObjectGlobals.h"
 #include "GameFramework/Actor.h"
 #include "Projectile.generated.h"
@@ -22,6 +24,10 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	UProjectileMovementComponent* ProjectileMovment = nullptr;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UStaticMeshComponent* CollisionMesh = nullptr;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UParticleSystemComponent* LaunchBlast = nullptr;
 
 
 public:	

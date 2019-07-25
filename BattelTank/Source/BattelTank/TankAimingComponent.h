@@ -52,7 +52,10 @@ protected:
 	float ReloadTimeInSeconds = 3;
 
 	double LastFireTime = 0;
-	int RoundsLeft = 3;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	int32 RoundsLeft = 3;
+	
 	FVector AimDirection;
 
 	bool IsMoving();
@@ -71,7 +74,7 @@ public:
 	EFiringState GetFiringState() const;
 	UFUNCTION(BlueprintCallable, Category = "Firing")
 		
-	int GetRoundsLeft()const;
+	int32 GetRoundsLeft()const;
 
 	void AimAt(FVector HitLocation);
 	UFUNCTION(BlueprintCallable, Category = "Setup")	

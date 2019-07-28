@@ -64,7 +64,7 @@ protected:
 
 public:	
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-	float LuanchSpeed = 4000;
+	float LuanchSpeed = 8000;
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 

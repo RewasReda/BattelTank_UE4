@@ -26,15 +26,16 @@ ATank::ATank()
 //}
 
 // Called when the game starts or when spawned
-//void ATank::BeginPlay()
-//{
-//	Super::BeginPlay();
-//	//TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
-//	// Needed for BP Begin Play to run!
-//	//auto TankName = GetName();
-//	//UE_LOG(LogTemp, Warning, TEXT("%s DONKEY: Tank C++ Begin Play"), *TankName)
-//}
-//
+void ATank::BeginPlay()
+{
+	Super::BeginPlay();
+	CurrentHealth = StartingHealth;
+	//TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
+	// Needed for BP Begin Play to run!
+	//auto TankName = GetName();
+	//UE_LOG(LogTemp, Warning, TEXT("%s DONKEY: Tank C++ Begin Play"), *TankName)
+}
+
 ////// Called every frame
 ////void ATank::Tick(float DeltaTime)
 ////{
@@ -89,7 +90,7 @@ float ATank::TakeDamage(float DamageAmount, FDamageEvent const & DamageEvent, AC
 	CurrentHealth -= DamageToApply;
 	if (CurrentHealth <= 0)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Tank died"))
+		//UE_LOG(LogTemp, Warning, TEXT("Tank died"))
 		
 		OnDeath.Broadcast();
 	}

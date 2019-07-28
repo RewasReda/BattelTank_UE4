@@ -2,7 +2,7 @@
 
 #pragma once
 
-//#include "Tank.h"
+#include "Tank.h"
 #include "Runtime/Engine/Classes/Camera/PlayerCameraManager.h"
 #include "Engine/World.h"
 #include "TankAimingComponent.h"
@@ -34,17 +34,21 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditDefaultsOnly)
-		float CrosshairXLocation = 0.5;
+	float CrosshairXLocation = 0.5;
 
 	UPROPERTY(EditDefaultsOnly)
-		float CrosshairYLocation = 0.3333;
+	float CrosshairYLocation = 0.3333;
 
 	UPROPERTY(EditDefaultsOnly)
-		float LineTraceRange = 1000000;
+	float LineTraceRange = 1000000;
 	// Start the tank moving the barrel so that a shot would hit where
 	// the crosshair intersects the world
 	void AimTowardsCrosshair();
 	bool GetSightRayHitLocation(FVector& HitLocation) const;
 	bool GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const;
 	bool GetLookVectorHitLocation(FVector  LookDirection, FVector& HitLocation) const;
+	UFUNCTION()
+	void OnPossedTankDeath();
+	void SetPawn(APawn * InPawn);
+
 };

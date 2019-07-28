@@ -49,12 +49,12 @@ protected:
 
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-	float ReloadTimeInSeconds = 3;
+	float ReloadTimeInSeconds = 2;
 
 	double LastFireTime = 0;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-	int32 RoundsLeft = 3;
+	int32 RoundsLeft = 20;
 	
 	FVector AimDirection;
 

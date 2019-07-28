@@ -2,7 +2,7 @@
 
 #pragma once
 
-//#include "Tank.h"
+#include "Tank.h"
 #include "TankAimingComponent.h"
 #include "Engine/World.h"
 #include "Components/ActorComponent.h"
@@ -28,6 +28,9 @@ private:
 	float  AcceptanceRadious = 3000;
 	/*ATank* GetControlledTank() const;
 	ATank* GetPlayerTank() const;*/
+	virtual void SetPawn(APawn* InPawn) override;
+	UFUNCTION()
+	void OnPossedTankDeath();
 protected:
 	// How close can the AI tank get
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")

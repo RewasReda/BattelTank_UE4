@@ -14,6 +14,8 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTankDelegate);
+
 class UTankBarrel;
 
 UCLASS()
@@ -26,7 +28,11 @@ public:
 	ATank();
 
 	//void AimAt(FVector HitLocation);
-
+	// Called by the engine when actor damage is dealt
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEvent, class AController * EventInstigator, AActor * DamageCauser) override;
+	UFUNCTION(BlueprintPure, Category = "Health")
+	float GetHealthPercent() const;
+	FTankDelegate OnDeath;
 
 protected:
 	// Called when the game starts or when spawned
@@ -35,18 +41,19 @@ protected:
 	//UTankAimingComponent* TankAimingComponent = nullptr;
 	//UPROPERTY(BlueprintReadOnly)
 	//UTankMovementComponent* TankMovementComponent = nullptr;
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	int32 StartingHealth = 100;
+	UPROPERTY(VisibleAnywhere, Category = "Health")
+	int32 CurrentHealth = StartingHealth;
 public:	
 	//// Called every frame
 	//virtual void Tick(float DeltaTime) override;
-
 	// Called to bind functionality to input
 	//virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
 	//UFUNCTION(BlueprintCallable , Category=Setup)
 	//void SetBarrelRefrence(UTankBarrel* BarrelToSet);
 	//UFUNCTION(BlueprintCallable, Category = "Setup")
 	//void SetTurretRefrence(UTankTurret* TurretToSet);
-
 	//UFUNCTION(BlueprintCallable, Category = "Firing")
 	//void Fire();
 	// TODO remove once firing is moved to aiming component
@@ -55,11 +62,8 @@ public:
 	//
 	//UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	//TSubclassOf<AProjectile> ProjectileBlueprint;
-
 	//UTankBarrel* Barrel = nullptr;// TODO Remove
-
 	//UPROPERTY(EditDefaultsOnly, Category = "Firing")	
 	//float ReloadTimeInSeconds = 3;
-
 	//double LastFireTime = 0;
 };

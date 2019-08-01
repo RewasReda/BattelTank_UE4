@@ -60,7 +60,7 @@ protected:
 
 	bool IsMoving();
 
-	void MoveBarrelTowards(FVector AimDirection);
+	void MoveBarrelTowards(FVector TargetAimDirection);
 
 public:	
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
